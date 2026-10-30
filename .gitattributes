@@ -1,0 +1,11 @@
+# Normalise line endings so the same repository state is checked out on every
+# operating system. Without this, core.autocrlf decides per machine and
+# `npm run format:check` passes on Linux CI while failing on Windows.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.ttf binary
+*.pdf binary
