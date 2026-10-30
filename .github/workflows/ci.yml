@@ -1,0 +1,69 @@
+# CI for Ritual — quality gates only.
+#
+# There is no native build here on purpose: this is an Expo/React Native app whose
+# builds are cloud-hosted through EAS (see .github/workflows/release.yml and
+# docs/RELEASE_PROCESS.md). Running Android Studio or Xcode in CI would add minutes,
+# runners and secrets for no extra signal — lint, types, tests and expo-doctor are
+# what a pull request can actually verify.
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+# A new push to the same branch cancels the run it supersedes, so a fast
+# iteration loop does not queue three identical jobs.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Lint, types, tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: 'actions/checkout@v4'
+
+      # Node 22 matches .nvmrc. Pinned explicitly so a future .nvmrc change is a
+      # deliberate edit in a PR diff rather than a silent CI move.
+      - name: Set up Node.js 22
+        uses: 'actions/setup-node@v4'
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # jest.config.js enforces the coverage threshold on the pure logic it asserts on.
+      - name: Test with coverage
+        run: npm run test:coverage
+
+      # Dependency/config sanity for Expo projects: SDK version alignment, native
+      # module compatibility, app config problems.
+      - name: expo-doctor
+        run: npx --yes expo-doctor@latest
+
+      - name: Upload coverage artifact
+        if: ${{ always() }}
+        uses: 'actions/upload-artifact@v4'
+        with:
+          name: coverage
+          path: |
+            coverage/
+          if-no-files-found: warn
+          retention-days: 14

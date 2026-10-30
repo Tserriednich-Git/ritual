@@ -1,0 +1,130 @@
+# Release pipeline for Ritual — verification only, no builds.
+#
+# WHY THIS WORKFLOW DOES NOT BUILD
+# -------------------------------
+# Native builds for this app are produced by EAS Build from a developer's or
+# maintainer's machine, not by GitHub Actions. Doing it in CI would require, at minimum:
+#
+#   * EAS_ACCESS_TOKEN            (Expo access token, organisation or user scoped)
+#   * an iOS distribution certificate + App Store provisioning profile, or
+#     EAS-managed credentials and an Apple Developer Program key
+#   * an Android keystore (or Play App Signing key) plus its passwords
+#   * App Store Connect API key for `eas submit --platform ios`
+#   * a Google service-account JSON for `eas submit --platform android`
+#     (see eas.json -> submit.production.android.serviceAccountKeyPath)
+#
+# None of those exist in this repository, and this workflow is deliberately written
+# so that it passes WITHOUT any secrets configured. The build/submit commands are
+# documented below as comments to copy from; uncommenting them is a conscious
+# decision that comes with adding the secrets above and re-reviewing
+# SECURITY.md (rows 8 and 9).
+#
+# Manual release path (what an operator runs, from a tagged checkout):
+#
+#   npx eas-cli@latest build  --platform ios     --profile production --non-interactive
+#   npx eas-cli@latest build  --platform android --profile production --non-interactive
+#   npx eas-cli@latest submit --platform ios     --profile production
+#   npx eas-cli@latest submit --platform android --profile production --track internal
+#
+# Full sequence, including rollout and rollback: docs/RELEASE_PROCESS.md
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+# Serialise releases: a second tag pushed while one is in flight must not overlap
+# store submissions. cancel-in-progress is false because a half-submitted release
+# is worse than a queued one.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify the tagged commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout tag
+        uses: 'actions/checkout@v4'
+
+      - name: Set up Node.js 22
+        uses: 'actions/setup-node@v4'
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test with coverage
+        run: npm run test:coverage
+
+      - name: expo-doctor
+        run: npx --yes expo-doctor@latest
+
+      - name: Release metadata (informational)
+        # Cheap guardrail: confirms the tag, package.json and app.json version agree
+        # before a human starts three EAS builds by hand.
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          APPJSON="$(node -p "require('./app.json').expo.version")"
+          echo "tag=v${TAG}  package.json=${PKG}  app.json=${APPJSON}"
+          if [ "${TAG}" != "${PKG}" ] || [ "${TAG}" != "${APPJSON}" ]; then
+            echo "::warning::version mismatch between tag, package.json and app.json"
+          fi
+
+      - name: What happens next (printed, not executed)
+        run: |
+          echo "This workflow intentionally does NOT build or submit."
+          echo "Run the EAS commands documented at the top of .github/workflows/release.yml"
+          echo "and follow docs/RELEASE_PROCESS.md for the internal -> beta -> production rollout."
+
+  # ------------------------------------------------------------------
+  # Reference only. These steps are commented out because no EAS
+  # credentials are configured for this repository. To adopt them:
+  #   1. Add the secrets listed above to the repository/environment.
+  #   2. Uncomment the job, and gate it with `if: vars.EAS_BUILDS_ENABLED == 'true'`
+  #      so an accidental tag push cannot submit to a store.
+  #   3. Re-review SECURITY.md (CI/build pipeline and dependency rows) in the same PR.
+  # ------------------------------------------------------------------
+  #
+  # build:
+  #   needs: verify
+  #   if: ${{ vars.EAS_BUILDS_ENABLED == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 60
+  #   env:
+  #     EAS_ACCESS_TOKEN: "${{ secrets.EAS_ACCESS_TOKEN }}"
+  #     EXPO_TOKEN: "${{ secrets.EAS_ACCESS_TOKEN }}"
+  #   steps:
+  #     - uses: "actions/checkout@v4"
+  #     - uses: "actions/setup-node@v4"
+  #       with:
+  #         node-version: "22"
+  #         cache: npm
+  #     - run: npm ci
+  #     - run: npm i --no-save --global eas-cli@latest
+  #     - name: Build iOS (production profile -> App Store .ipa)
+  #       run: eas build --platform ios --profile production --non-interactive
+  #     - name: Build Android (production profile -> .aab)
+  #       run: eas build --platform android --profile production --non-interactive
+  #     # Submission is intentionally a separate, manual step so that a build can be
+  #     # smoke-tested on real devices before anything reaches a store track:
+  #     #   eas submit --platform ios --profile production
+  #     #   eas submit --platform android --profile production --track internal
+  #     # Do not add `--auto-submit` to a tag-triggered workflow: it removes the
+  #     # human checkpoint between "the artifact exists" and "reviewers have it".

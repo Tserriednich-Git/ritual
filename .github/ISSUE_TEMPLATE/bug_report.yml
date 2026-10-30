@@ -1,0 +1,139 @@
+name: Bug report
+description: Something in Ritual does not behave as documented — especially streaks, dates, reminders or export/import.
+title: '[Bug] '
+labels:
+  - bug
+  - triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. **Do not open a public issue for a security vulnerability** — see SECURITY.md in this repository and email `<support@example.com>` instead.
+
+        Ritual has no backend and collects nothing, so the only diagnostics available are the ones you choose to send. Please export your data (Settings → Export → JSON) and attach the file if it reproduces the bug — it is usually the single most useful artifact. A device or emulator screenshot is a close second.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Describe the bug
+      description: What you expected, what happened, and how to see it again.
+      placeholder: |
+        Expected: a 3×-per-week habit with 3 check-ins this week should keep its weekly streak.
+        Actual: the Progress screen shows "0 weeks".
+
+        Steps to reproduce:
+        1. Create a habit with frequency "3 times per week".
+        2. Check in on Monday, Tuesday, Wednesday.
+        3. Open the Progress tab.
+      validations:
+        required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the app?
+      options:
+        - Today / check-in
+        - Streak calculation
+        - Progress / stats / heatmap
+        - Habit editor / validation
+        - Reminders / notifications
+        - Theme / appearance
+        - Export / import
+        - Database / migrations
+        - Navigation
+        - Build / tooling / CI
+        - Documentation
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Platform(s) affected
+      description: Select every platform you have reproduced this on.
+      options:
+        - label: iOS
+        - label: Android
+        - label: Web (not a product target — the report is still useful)
+
+  - type: checkboxes
+    id: repro-build
+    attributes:
+      label: Does it reproduce in a development build?
+      description: Reproducing outside Expo Go rules out the most common non-bug (Expo Go only ships its own bundled native modules, so `expo-sqlite` and `expo-notifications` do not behave there).
+      options:
+        - label: 'Yes — it reproduces in a development build (`npx expo run:android` / `run:ios`, or `eas build --profile development`)'
+        - label: It reproduces in **Expo Go** only
+        - label: It reproduces in a **production/store build**
+        - label: 'No — I could not reproduce it in a development build'
+
+  - type: input
+    id: os-versions
+    attributes:
+      label: OS and device
+      description: e.g. "iOS 26.0 on iPhone 16 Pro", "Android 16 on Pixel 9".
+      placeholder: iOS 26.0 / iPhone 16 Pro
+      validations:
+        required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: Ritual version
+      description: The version shown in Settings, or the `version` field of the build you are running.
+      placeholder: '1.0.0'
+      validations:
+        required: true
+
+  - type: input
+    id: expo-env
+    attributes:
+      label: Relevant toolchain versions
+      description: |
+        Output of `npx expo-doctor` and `npx expo diagnostics` if you have the project checked out. Leave blank if you are only using the released app.
+      placeholder: Expo SDK 58 / React Native 0.88.1 / Node 22
+
+  - type: textarea
+    id: streak-details
+    attributes:
+      label: If the bug is about a streak or a date, give the exact data
+      description: |
+        Streak maths depends on the frequency model, the habit's creation date and the specific check-in dates, so free-text like "the streak is wrong" is not actionable. Paste the habit's frequency and its completion dates, or attach the JSON export.
+      placeholder: |
+        Frequency: times_per_week, target 3
+        Created: 2026-09-01
+        Completions: 2026-10-05, 2026-10-07, 2026-10-10, 2026-10-14, 2026-10-16
+        Today when observed: 2026-10-21
+        Shown: "3 weeks" — expected: "4 weeks"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console output / logs
+      description: Metro, Xcode or `adb logcat` output. There is no crash reporting in this app, so anything you paste here is the only telemetry anyone gets.
+      render: shell
+
+  - type: textarea
+    id: reproduction-repo
+    attributes:
+      label: Minimal reproduction
+      description: Optional. A public fork or branch where the bug reproduces, or the exact data needed to reproduce it from a clean install.
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround or impact
+      description: Is there a way around it, and how much of the app does it affect?
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I searched existing issues and found none matching this
+          required: true
+        - label: I have removed personal information from anything I pasted (notes, habit names, screenshots)
+          required: true
+        - label: This is not a security vulnerability (those go to `<support@example.com>`, not here)
+          required: true

@@ -1,0 +1,93 @@
+# Dependency updates for Ritual.
+#
+# Two ecosystems only, matching what this repository can actually be harmed by:
+#   * npm           — the Expo/React Native runtime and tooling tree
+#   * github-actions — the workflow actions themselves
+#
+# Expo version alignment matters: bumping `expo` or an `expo-*` module outside the
+# SDK 58 range breaks the app in ways CI's `expo-doctor` step is there to catch.
+# Reviews therefore stay small, grouped, and merged one batch at a time.
+version: 2
+
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '07:00'
+      timezone: 'Etc/UTC'
+    # A handful of PRs is all a solo-maintained repo can review; the rest queue up.
+    open-pull-requests-limit: 6
+    labels:
+      - 'dependencies'
+      - 'expo'
+    commit-message:
+      prefix: 'chore(deps)'
+      prefix-development: 'chore(dev-deps)'
+      include: 'scope'
+    # Patch + minor within the same major are grouped into one PR, so an SDK-wide
+    # ripple of small bumps arrives as a single review instead of fifteen.
+    groups:
+      expo-sdk:
+        patterns:
+          - 'expo'
+          - 'expo-*'
+          - '@expo/*'
+          - 'jest-expo'
+          - 'eslint-config-expo'
+        update-types:
+          - 'minor'
+          - 'patch'
+      react-navigation:
+        patterns:
+          - '@react-navigation/*'
+          - 'react-native-screens'
+          - 'react-native-safe-area-context'
+        update-types:
+          - 'minor'
+          - 'patch'
+      tooling:
+        patterns:
+          - 'eslint*'
+          - 'prettier'
+          - 'jest*'
+          - '@types/*'
+          - 'typescript'
+          - 'expo-doctor'
+        update-types:
+          - 'minor'
+          - 'patch'
+    ignore:
+      # Major bumps of the runtime trio are a project, not a dependency PR:
+      # they need an ADR, a prebuild diff and a device test pass.
+      - dependency-name: 'expo'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react-native'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      day: 'first-of-month'
+      time: '07:00'
+      timezone: 'Etc/UTC'
+    open-pull-requests-limit: 4
+    labels:
+      - 'dependencies'
+      - 'ci'
+    commit-message:
+      prefix: 'chore(ci)'
+      include: 'scope'
+    groups:
+      actions:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'

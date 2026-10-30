@@ -1,0 +1,115 @@
+name: Feature request
+description: Propose a new capability, a change to a product rule, or a documentation improvement.
+title: '[Feature] '
+labels:
+  - enhancement
+  - triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ritual is offline-first by design: **no backend, no accounts, no analytics, no ads, no network use**. A proposal that needs any of those is not automatically rejected, but it contradicts ADR 0001 (`docs/adr/0001-offline-first-no-backend.md`), so it has to argue for reopening that decision — say so in the "Privacy and offline impact" field.
+
+        Streak and date rules are also settled by ADR 0004 (`docs/adr/0004-week-based-streaks-for-quota-habits.md`); propose changes to them as behaviour changes with tests, not as bugs.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem, in your own words
+      description: What can't you do today, and what does that cost you? Concrete situations beat categories.
+      placeholder: |
+        I keep a "read 3 times per week" habit. Its streak shows weeks, but I cannot see how
+        many check-ins I have this week without opening the habit, so I can drift into Friday
+        at 1 of 3 and only notice on Saturday.
+      validations:
+        required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like instead
+      description: The behaviour you want, described from the user's side. One or two paragraphs.
+      validations:
+        required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does it touch?
+      description: Pick the closest one — it tells the maintainer which boundaries a change would cross.
+      options:
+        - Today / check-in
+        - Streak or frequency rules (domain logic)
+        - Progress / stats / heatmap
+        - Habit editor / validation
+        - Reminders / notifications
+        - Theme / appearance / accessibility
+        - Export / import formats
+        - Database / migrations
+        - Navigation / screens
+        - Documentation / legal / store listing
+        - Tooling / CI / build
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: platforms-wanted
+    attributes:
+      label: Platforms you care about
+      options:
+        - label: iOS
+        - label: Android
+        - label: Web (not a product target)
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Workarounds inside the app, other apps that do this well, or a simpler version of the same idea.
+
+  - type: textarea
+    id: privacy-offline
+    attributes:
+      label: Privacy and offline impact
+      description: |
+        Does the idea need any of: network access, an account, a server, analytics, a push service, a new permission, a new third-party SDK, or storing a new category of data? If it needs none, say "none".
+      placeholder: 'None — this is a purely local calculation over data already stored in the database.'
+      validations:
+        required: true
+
+  - type: textarea
+    id: data-model
+    attributes:
+      label: Data, migration and export impact
+      description: |
+        Does it need a new column or table, change the JSON/CSV export shape, or alter how a past completion is interpreted? If a schema change is implied, say which table and whether existing rows survive.
+
+  - type: textarea
+    id: testable-acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Bullet points someone could verify, including at least one edge case. Domain rules should be stated as inputs and expected outputs.
+      placeholder: |
+        - A weekly-quota habit shows "n of target" for the current week on the Today row.
+        - When the current week's quota is met, the label switches to "on target".
+        - A habit created today shows 0 of target, not an empty label.
+        - Edge case: the week containing 2026-12-31 reports under the correct ISO week key.
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Will you implement it?
+      description: Either answer is fine; it only sets expectations.
+      options:
+        - label: I'd like to open a pull request for this (I have read CONTRIBUTING.md, including the dependency rule and the migration rules)
+        - label: I'm proposing only — someone else can take it
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I searched existing issues and discussions for this idea
+          required: true
+        - label: I understand this is a small offline app and that "add sync" and "add accounts" are deliberately out of scope unless the case is argued
+          required: true
