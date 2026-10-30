@@ -213,20 +213,19 @@ Deliberately small, and in no particular order:
 
 ## Screenshots
 
-<!--
-  DROP REAL IMAGES HERE. The paths below are the slots the README expects.
-  Store-ready device frames belong in docs/screenshots/ — see
-  docs/screenshots/README.md for the exact pixel sizes per platform.
-  Once an image exists, uncomment its markdown line; keep the commented block
-  as the index so the slots never go stale.
--->
+| Today                                                                       | Progress                                                                          | Habit editor                                                                 | Settings                                                                          |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| <img src="./docs/screenshots/ios-today.png" alt="Today screen" width="220"> | <img src="./docs/screenshots/ios-progress.png" alt="Progress screen" width="220"> | <img src="./docs/screenshots/ios-editor.png" alt="Habit editor" width="220"> | <img src="./docs/screenshots/ios-settings.png" alt="Settings screen" width="220"> |
+| <!-- ![Today, Android](./docs/screenshots/android-today.png) -->            | <!-- ![Progress, Android](./docs/screenshots/android-progress.png) -->            | <!-- ![Editor, Android](./docs/screenshots/android-editor.png) -->           | <!-- ![Settings, Android](./docs/screenshots/android-settings.png) -->            |
 
-| Today                                                            | Progress                                                               | Habit editor                                                       | Settings                                                               |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| <!-- ![Today screen](./docs/screenshots/ios-today.png) -->       | <!-- ![Progress screen](./docs/screenshots/ios-progress.png) -->       | <!-- ![Habit editor](./docs/screenshots/ios-editor.png) -->        | <!-- ![Settings](./docs/screenshots/ios-settings.png) -->              |
-| <!-- ![Today, Android](./docs/screenshots/android-today.png) --> | <!-- ![Progress, Android](./docs/screenshots/android-progress.png) --> | <!-- ![Editor, Android](./docs/screenshots/android-editor.png) --> | <!-- ![Settings, Android](./docs/screenshots/android-settings.png) --> |
-
-Until the images are committed, this section links to the [screenshot manifest](./docs/screenshots/README.md) rather than dead files.
+These are the real screens — the same component tree, reducer-free store, SQLite
+schema and seed the app ships — rendered through the React Native web target at
+iPhone 16 Pro metrics (1290 × 2796) and captured headlessly. Two consequences to
+read them with: the numbers come from a demo fixture of three habits and ~60
+check-ins, which a fresh install does not have, and there is no OS status bar
+because a browser cannot draw one. Store submissions still need genuine
+simulator and device captures; see the
+[screenshot manifest](./docs/screenshots/README.md) for what goes where.
 
 ## Documentation
 

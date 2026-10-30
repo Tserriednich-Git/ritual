@@ -1,21 +1,44 @@
 # Screenshot manifest
 
-This folder holds the device-frame images the README and the store listings use. Both READMEs currently reference these paths inside HTML comments, so nothing is a dead link until the files are committed.
+This folder holds the device-frame images the README and the store listings use.
+The four `ios-*.png` files are committed and live in both READMEs; the four
+`android-*.png` files are not, and their README rows stay commented out until
+somebody captures them on an Android emulator or device.
 
 **To activate a slot:** drop the PNG in this folder, then uncomment its line in the `## Screenshots` table of [`README.md`](../../README.md) and [`README.es.md`](../../README.es.md) — both use the same filenames.
 
+## What the committed iOS set actually is
+
+`ios-today.png`, `ios-progress.png`, `ios-editor.png` and `ios-settings.png` are
+the shipping component tree — same screens, same store, same SQLite schema and
+first-run seed — rendered by the React Native **web** target at 430 × 932 pt and
+captured headlessly at 3× (1290 × 2796, the iPhone 16 Pro size below).
+
+Three caveats, so nobody is surprised later:
+
+1. **The data is a fixture.** Three habits and roughly 60 back-dated check-ins,
+   written by the capture harness. A fresh install shows the empty states. The
+   streak and consistency numbers in these images are real calculations over that
+   fixture, not hand-placed text.
+2. **There is no status bar.** A browser cannot draw one, so the top inset is
+   empty background. Store review expects the OS chrome.
+3. **These do not satisfy the store capture rule.** Rule 1 below asks for a
+   development or production build on a device; a web render of the same code is
+   honest for a README and not honest enough for App Store Connect. Re-capture on
+   a simulator before submitting.
+
 ## Files the README expects
 
-| Filename               | Screen                                                 | Shown as               |
-| ---------------------- | ------------------------------------------------------ | ---------------------- |
-| `ios-today.png`        | Today — habit rows with one-tap check-in, streak chips | README row 1, column 1 |
-| `ios-progress.png`     | Progress — consistency %, streaks                      | README row 1, column 2 |
-| `ios-editor.png`       | Habit editor — frequency model picker                  | README row 1, column 3 |
-| `ios-settings.png`     | Settings — theme, export/import, reminders             | README row 1, column 4 |
-| `android-today.png`    | Same Today screen, Android chrome                      | README row 2, column 1 |
-| `android-progress.png` | Same Progress screen, Android chrome                   | README row 2, column 2 |
-| `android-editor.png`   | Same editor, Android chrome                            | README row 2, column 3 |
-| `android-settings.png` | Same Settings, Android chrome                          | README row 2, column 4 |
+| Filename               | Screen                                                 | Shown as                               |
+| ---------------------- | ------------------------------------------------------ | -------------------------------------- |
+| `ios-today.png`        | Today — habit rows with one-tap check-in, streak chips | README row 1, column 1 — **committed** |
+| `ios-progress.png`     | Progress — consistency %, streaks                      | README row 1, column 2 — **committed** |
+| `ios-editor.png`       | Habit editor — frequency model picker                  | README row 1, column 3 — **committed** |
+| `ios-settings.png`     | Settings — theme, export/import, reminders             | README row 1, column 4 — **committed** |
+| `android-today.png`    | Same Today screen, Android chrome                      | README row 2, column 1                 |
+| `android-progress.png` | Same Progress screen, Android chrome                   | README row 2, column 2                 |
+| `android-editor.png`   | Same editor, Android chrome                            | README row 2, column 3                 |
+| `android-settings.png` | Same Settings, Android chrome                          | README row 2, column 4                 |
 
 Capture these at the display scale below and keep the README set to **one screen per image, real UI, no marketing text overlay**.
 

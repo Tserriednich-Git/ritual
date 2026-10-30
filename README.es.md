@@ -211,21 +211,20 @@ Deliberadamente corta, y sin un orden estricto:
 
 ## Capturas de pantalla
 
-<!--
-  COLOCA AQUÍ LAS IMÁGENES REALES. Las rutas de abajo son los huecos que
-  espera el README. Los marcos de dispositivo listos para tienda van en
-  docs/screenshots/ — mira docs/screenshots/README.md para las medidas exactas
-  por plataforma.
-  Cuando exista una imagen, descomenta su línea markdown; deja el bloque de
-  comentarios como índice para que los huecos no queden obsoletos.
--->
+| Hoy                                                                         | Progreso                                                                            | Editor de hábitos                                                                 | Ajustes                                                                            |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| <img src="./docs/screenshots/ios-today.png" alt="Pantalla Hoy" width="220"> | <img src="./docs/screenshots/ios-progress.png" alt="Pantalla Progreso" width="220"> | <img src="./docs/screenshots/ios-editor.png" alt="Editor de hábitos" width="220"> | <img src="./docs/screenshots/ios-settings.png" alt="Pantalla Ajustes" width="220"> |
+| <!-- ![Hoy en Android](./docs/screenshots/android-today.png) -->            | <!-- ![Progreso en Android](./docs/screenshots/android-progress.png) -->            | <!-- ![Editor en Android](./docs/screenshots/android-editor.png) -->              | <!-- ![Ajustes en Android](./docs/screenshots/android-settings.png) -->            |
 
-| Hoy                                                              | Progreso                                                                 | Editor                                                               | Ajustes                                                                 |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| <!-- ![Pantalla Hoy](./docs/screenshots/ios-today.png) -->       | <!-- ![Pantalla Progreso](./docs/screenshots/ios-progress.png) -->       | <!-- ![Editor de hábitos](./docs/screenshots/ios-editor.png) -->     | <!-- ![Ajustes](./docs/screenshots/ios-settings.png) -->                |
-| <!-- ![Hoy en Android](./docs/screenshots/android-today.png) --> | <!-- ![Progreso en Android](./docs/screenshots/android-progress.png) --> | <!-- ![Editor en Android](./docs/screenshots/android-editor.png) --> | <!-- ![Ajustes en Android](./docs/screenshots/android-settings.png) --> |
-
-Hasta que las imágenes estén en el repositorio, esta sección enlaza al [manifiesto de capturas](./docs/screenshots/README.md) en lugar de a archivos inexistentes.
+Son las pantallas reales: el mismo árbol de componentes, el mismo store, el mismo
+esquema SQLite y la misma semilla que publica la app, renderizados por el target
+web de React Native con las medidas de un iPhone 16 Pro (1290 × 2796) y capturados
+sin interfaz de navegador. Dos consecuencias al mirarlas: los números salen de un
+fixture de demostración de tres hábitos y ~60 registros que una instalación limpia
+no tiene, y no hay barra de estado del sistema porque un navegador no puede
+dibujarla. Para enviar a tienda siguen haciendo falta capturas reales en
+simulador y dispositivo; el [manifiesto de capturas](./docs/screenshots/README.md)
+dice qué va en cada hueco.
 
 ## Documentación
 
