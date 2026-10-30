@@ -79,7 +79,7 @@ Requisitos: Node 22 (ver [`.nvmrc`](./.nvmrc)) y npm.
 - **TypeScript estricto.** `strict`, además de `noUncheckedIndexedAccess`, `noImplicitOverride` y `noFallthroughCasesInSwitch` — sin salidas por `any` implícito.
 - **Relojes inyectados.** Toda función sensible a fechas recibe `today` como parámetro opcional, así que las pruebas de rachas son deterministas sin mockear `Date`.
 - **ESLint con flat config + Prettier**, `expo-doctor` en CI y una CI que ejecuta lint, typecheck y pruebas con cobertura en cada push y pull request.
-- **New Architecture** activado, motor Hermes y sin dependencias exclusivas de web.
+- **New Architecture** activado y motor Hermes. `react-native-web` y `react-dom` están solo para que el target web pueda empaquetarse; ni `App.tsx` ni `src/` los importan, y el objetivo de producto sigue siendo iOS/Android.
 
 ## Arquitectura
 
@@ -123,7 +123,7 @@ El dato fluye en una dirección: las filas del repository se mapean a tipos de d
 
 ## Pruebas
 
-132 pruebas en 11 suites, todas deterministas: sin mockear el reloj, sin red y sin dispositivo. Se ejecutan con `npm test`.
+133 pruebas en 11 suites, todas deterministas: sin mockear el reloj, sin red y sin dispositivo. Se ejecutan con `npm test`.
 
 Configuración actual en `jest.config.js` y `jest.setup.ts`:
 

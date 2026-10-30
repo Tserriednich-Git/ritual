@@ -3,7 +3,7 @@
 **Audience:** someone opening the repo cold, or reviewing a pull request.
 **Scope:** layer boundaries, the dependency rule, data flow, the date model, migrations and error handling.
 
-> **Status note.** Every layer below exists in the tree today (`src/domain`, `src/db`, `src/store`, `src/notifications`, `src/theme`, `src/components`, `src/features`, `src/app`), together with the test suite that holds their boundaries: 132 co-located tests under `src/**/__tests__`, deterministic through injected clocks and without native modules. Screens are the deliberate gap — they are verified on a device, and everything they render is derived from the tested selectors and domain functions.
+> **Status note.** Every layer below exists in the tree today (`src/domain`, `src/db`, `src/store`, `src/notifications`, `src/theme`, `src/components`, `src/features`, `src/app`), together with the test suite that holds their boundaries: 133 co-located tests under `src/**/__tests__`, deterministic through injected clocks and without native modules. Screens are the deliberate gap — they are verified on a device, and everything they render is derived from the tested selectors and domain functions.
 
 ---
 

@@ -10,9 +10,20 @@ Versions listed are the `version` field in `package.json` and `app.json`, which 
 
 ## [Unreleased]
 
-Nothing queued yet. Add entries here under `Added`, `Changed`, `Fixed`, `Removed`, `Deprecated` or `Security` as described in [CONTRIBUTING.md](./CONTRIBUTING.md).
+### Fixed
 
-Current roadmap candidates (not commitments) live in the [README roadmap](./README.md#roadmap):
+- `react-native-web` and `react-dom` were never declared dependencies, so `expo start --web` failed to resolve `react-native` at all: the web target did not build from a clean install, and the screenshots this repo publishes — which are rendered through it — could not be reproduced by anyone else. Both are now in `dependencies`, and the web bundle compiles.
+- Metro: `wasm` added to `resolver.assetExts`, so expo-sqlite's WASM worker resolves. Without it the web target could not bundle at all.
+- `src/db`: migrations, backup import and habit reordering no longer call `withExclusiveTransactionAsync` — expo-sqlite implements it on native only and throws `not supported on web` anywhere else, which killed every write path outside iOS/Android. They use `withTransactionAsync` instead, which is the same guarantee on the one connection an app holds. A completion-existence probe also stopped aliasing its column as `exists`, a SQLite keyword.
+- UI: the bottom tab bar sized its labels past the height the bar reserves, so they clipped where the safe-area inset is zero. Icon, label and line sizes now fit inside the bar's own content height.
+- Copy: streak captions read "3 day streak". `src/domain/streak.ts` gained `countLabel` and `streakAdjective`, so the rows read "3-day streak" and the detail screen reads "best 20 days".
+
+### Added
+
+- `docs/screenshots/ios-*.png` — the four README screens, rendered from the shipping component tree through the web target at 1290×2796, wired into both READMEs. `docs/screenshots/README.md` records what they are and what they are not: fixture data, no OS chrome, and no substitute for simulator captures before a store submission. The Android row stays commented out because those captures do not exist yet.
+- One test pinning the two streak label helpers — the suite is 133 tests.
+
+Roadmap candidates (not commitments) live in the [README roadmap](./README.md#roadmap):
 
 - **Added:** home-screen widget / live activity for today's outstanding habits.
 - **Changed:** thread the existing Monday/Sunday week-start preference through

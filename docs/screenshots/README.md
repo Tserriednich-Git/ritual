@@ -16,16 +16,27 @@ captured headlessly at 3× (1290 × 2796, the iPhone 16 Pro size below).
 
 Three caveats, so nobody is surprised later:
 
-1. **The data is a fixture.** Three habits and roughly 60 back-dated check-ins,
-   written by the capture harness. A fresh install shows the empty states. The
-   streak and consistency numbers in these images are real calculations over that
-   fixture, not hand-placed text.
+1. **The data is a fixture.** The three seeded habits with 41 back-dated
+   check-ins between them — 20 on Read, 12 on Move, 9 on Water — written by the
+   capture harness. A fresh install shows the empty states. The streak and
+   consistency numbers in these images are real calculations over that fixture,
+   not hand-placed text.
 2. **There is no status bar.** A browser cannot draw one, so the top inset is
    empty background. Store review expects the OS chrome.
 3. **These do not satisfy the store capture rule.** Rule 1 below asks for a
    development or production build on a device; a web render of the same code is
    honest for a README and not honest enough for App Store Connect. Re-capture on
    a simulator before submitting.
+
+The harness that produced them was a scratch entry file (`tools/preview/…`), not
+a committed tool, so re-capturing means rebuilding it. Three things it had to get
+right, and the reason each one is there: override `SafeAreaInsetsContext` and
+`SafeAreaFrameContext` with a phone's insets, because `env(safe-area-inset-*)` is
+always `0` in a desktop browser and the layout collapses without it; back-date
+`habits.created_at`, because `computeStreak` filters completions to the habit's
+own lifetime and every seeded check-in is older than the install; and block the
+dev server's own entry from loading, because it opens the same OPFS file and the
+web SQLite worker needs the exclusive access handle.
 
 ## Files the README expects
 

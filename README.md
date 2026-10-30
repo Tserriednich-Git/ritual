@@ -79,7 +79,7 @@ Prerequisites: Node 22 (see [`.nvmrc`](./.nvmrc)) and npm.
 - **Strict TypeScript.** `strict`, plus `noUncheckedIndexedAccess`, `noImplicitOverride` and `noFallthroughCasesInSwitch` — no ambient-any escape hatches.
 - **Injected clocks.** Every date-sensitive function takes `today` as an optional parameter, so streak tests are deterministic without mocking `Date`.
 - **Flat-config ESLint + Prettier**, `expo-doctor` in CI, and CI that runs lint, typecheck and tests with coverage on every push and pull request.
-- **New Architecture** enabled, Hermes runtime, no web-only dependencies.
+- **New Architecture** enabled, Hermes runtime. `react-native-web` and `react-dom` are there so the web target can bundle at all; nothing in `App.tsx` or `src/` imports them, and the product target stays iOS/Android.
 
 ## Architecture
 
@@ -123,7 +123,7 @@ Data flows one way: repository rows are mapped to domain types, the store holds 
 
 ## Testing
 
-132 tests in 11 suites, all deterministic — no clock mocking, no network, no device. Run them with `npm test`.
+133 tests in 11 suites, all deterministic — no clock mocking, no network, no device. Run them with `npm test`.
 
 Configuration as it stands in `jest.config.js` and `jest.setup.ts`:
 
@@ -138,7 +138,7 @@ What each suite pins down:
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `domain/date`         | `YYYY-MM-DD` round-tripping, impossible dates like `2026-02-30`, day arithmetic across a DST boundary, Monday- and Sunday-based week starts, ISO week keys at a year boundary, the no-ICU fallback |
 | `domain/frequency`    | which days are scheduled per model, and `expectedCompletions` over partial ranges — a weekly quota never owes more than one week's worth from a remainder                                          |
-| `domain/streak`       | day vs week units, current vs longest, the grace rule for an unchecked today and an unfinished current week, gaps that genuinely break a run                                                       |
+| `domain/streak`       | day vs week units, current vs longest, the grace rule for an unchecked today and an unfinished current week, gaps that genuinely break a run, the wording of the labels the UI prints              |
 | `domain/stats`        | consistency over the trailing 28-day window, heatmap levels, weekday rates, a creation date in the future not wiping history                                                                       |
 | `domain/validation`   | name and description limits, colour and icon tokens, weekly bounds 1–7, unique weekdays, `HH:MM` reminders, duplicate names                                                                        |
 | `domain/backup`       | v1 `ritual.backup` round trip, rejection of malformed payloads, per-entry recovery, CSV quoting                                                                                                    |
