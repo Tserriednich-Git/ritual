@@ -1,4 +1,11 @@
-import { computeStreak, frequencyUnit, isSatisfiedToday, streakLabel } from '../streak';
+import {
+  computeStreak,
+  countLabel,
+  frequencyUnit,
+  isSatisfiedToday,
+  streakAdjective,
+  streakLabel,
+} from '../streak';
 import type { Frequency } from '../types';
 
 const daily: Frequency = { kind: 'every_day' };
@@ -156,5 +163,13 @@ describe('labels and units', () => {
     expect(streakLabel({ unit: 'week', current: 1, longest: 1 })).toBe('1 week');
     expect(streakLabel({ unit: 'week', current: 6, longest: 6 })).toBe('6 weeks');
     expect(streakLabel({ unit: 'day', current: 0, longest: 4 })).toBe('0 days');
+  });
+
+  it('labels a bare count and the attributive form', () => {
+    expect(countLabel(1, 'day')).toBe('1 day');
+    expect(countLabel(20, 'day')).toBe('20 days');
+    expect(countLabel(3, 'week')).toBe('3 weeks');
+    expect(streakAdjective({ unit: 'day', current: 20, longest: 20 })).toBe('20-day');
+    expect(streakAdjective({ unit: 'week', current: 1, longest: 1 })).toBe('1-week');
   });
 });

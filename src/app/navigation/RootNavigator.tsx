@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, Text as RNText } from 'react-native';
+import { Text as RNText } from 'react-native';
 import {
   DarkTheme as NavDarkTheme,
   DefaultTheme as NavLightTheme,
@@ -35,14 +35,16 @@ function TabNavigator() {
         headerShown: false,
         tabBarActiveTintColor: theme.colors.accent,
         tabBarInactiveTintColor: theme.colors.textMuted,
+        tabBarIconSize: 24,
         tabBarIcon: ({ color, size }) => (
-          <RNText style={{ color, fontSize: size + 8 }}>{TAB_GLYPHS[route.name] ?? '•'}</RNText>
+          <RNText style={{ color, fontSize: size, lineHeight: size + 2 }}>
+            {TAB_GLYPHS[route.name] ?? '•'}
+          </RNText>
         ),
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600', lineHeight: 13 },
         tabBarStyle: {
           backgroundColor: theme.colors.surface,
           borderTopColor: theme.colors.border,
-          paddingTop: Platform.OS === 'ios' ? 6 : 2,
         },
       })}
     >

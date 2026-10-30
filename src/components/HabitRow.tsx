@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { frequencyLabel } from '../domain/frequency';
-import { streakLabel } from '../domain/streak';
+import { streakAdjective } from '../domain/streak';
 import type { HabitWithProgress } from '../domain/types';
 import { tokenColor, tokenSoft } from '../theme/palette';
 import { radius, spacing, touchTarget, useTheme } from '../theme/theme';
@@ -56,7 +56,7 @@ export function HabitRow({ row, onToggle, onOpen, scheme }: Props) {
           </Text>
           <Text variant="caption" tone="muted" numberOfLines={1}>
             {streak > 0
-              ? `${frequencyLabel(row.habit.frequency)} · ${streakLabel(row.stats.streak)} streak`
+              ? `${frequencyLabel(row.habit.frequency)} · ${streakAdjective(row.stats.streak)} streak`
               : frequencyLabel(row.habit.frequency)}
           </Text>
           <ProgressBar

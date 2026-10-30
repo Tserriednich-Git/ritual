@@ -39,7 +39,7 @@ describe('HabitRow', () => {
   it('shows the name, the cadence and the live streak', async () => {
     await render(<HabitRow row={row()} onToggle={jest.fn()} onOpen={jest.fn()} scheme="light" />);
     expect(screen.getByText('Read')).toBeOnTheScreen();
-    expect(screen.getByText('3× per week · 3 days streak')).toBeOnTheScreen();
+    expect(screen.getByText('3× per week · 3-day streak')).toBeOnTheScreen();
   });
 
   it('drops the streak clause when nothing is running', async () => {

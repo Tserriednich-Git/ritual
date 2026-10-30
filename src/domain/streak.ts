@@ -114,7 +114,16 @@ export function isSatisfiedToday(
 }
 
 export function streakLabel(streak: Streak): string {
-  const n = streak.current;
-  const noun = streak.unit === 'week' ? 'week' : 'day';
-  return `${n} ${noun}${n === 1 ? '' : 's'}`;
+  return countLabel(streak.current, streak.unit);
+}
+
+/** A run of `count` periods, pluralised: "20 days", "1 week". */
+export function countLabel(count: number, unit: StreakUnit): string {
+  const noun = unit === 'week' ? 'week' : 'day';
+  return `${count} ${noun}${count === 1 ? '' : 's'}`;
+}
+
+/** The attributive form, for use before the word "streak": "20-day streak". */
+export function streakAdjective(streak: Streak): string {
+  return `${streak.current}-${streak.unit}`;
 }

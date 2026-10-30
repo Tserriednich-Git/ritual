@@ -10,7 +10,7 @@ import { Screen } from '../../components/ui/Screen';
 import { Text } from '../../components/ui/Text';
 import { frequencyLabel } from '../../domain/frequency';
 import { percentage } from '../../domain/stats';
-import { streakLabel } from '../../domain/streak';
+import { countLabel, streakLabel } from '../../domain/streak';
 import type { HabitWithProgress, Streak } from '../../domain/types';
 import { tokenColor } from '../../theme/palette';
 import { radius, spacing, useTheme } from '../../theme/theme';
@@ -157,8 +157,9 @@ export function ProgressScreen({ navigation }: Props) {
                     </Text>
                   </View>
                   <Text variant="caption" tone="muted">
-                    {frequencyLabel(row.habit.frequency)} · best {row.stats.streak.longest}{' '}
-                    {row.stats.streak.unit} · consistency {percentage(row.stats.consistency)}
+                    {frequencyLabel(row.habit.frequency)} · best{' '}
+                    {countLabel(row.stats.streak.longest, row.stats.streak.unit)} · consistency{' '}
+                    {percentage(row.stats.consistency)}
                   </Text>
                   <ProgressBar
                     value={row.stats.consistency}

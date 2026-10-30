@@ -12,7 +12,7 @@ import { Text } from '../../components/ui/Text';
 import { addDays, friendlyDateLabel, startOfWeekISO, weekdayShortNames } from '../../domain/date';
 import { frequencyLabel } from '../../domain/frequency';
 import { buildHeatmap, localDateFromEpoch, percentage, weekdayBreakdown } from '../../domain/stats';
-import { streakLabel } from '../../domain/streak';
+import { countLabel, streakLabel } from '../../domain/streak';
 import { selectRowFor } from '../../store/selectors';
 import { useRitualStore } from '../../store/useRitualStore';
 import { spacing, useTheme } from '../../theme/theme';
@@ -62,7 +62,10 @@ export function HabitDetailScreen({ route, navigation }: Props) {
       <Card style={[styles.column, { borderLeftWidth: 4, borderLeftColor: accent }]}>
         <View style={styles.metricRow}>
           <Metric label="current" value={streakLabel(row.stats.streak)} accent={accent} />
-          <Metric label="best" value={`${row.stats.streak.longest} ${row.stats.streak.unit}`} />
+          <Metric
+            label="best"
+            value={countLabel(row.stats.streak.longest, row.stats.streak.unit)}
+          />
           <Metric label="check-ins" value={String(row.stats.totalCompletions)} />
         </View>
         <ProgressBar
