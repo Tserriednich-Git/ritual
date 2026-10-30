@@ -1,0 +1,27 @@
+{
+  "default": true,
+  "MD013": false,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD033": false,
+  "MD004": "dash",
+  "MD007": {
+    "indent": 2
+  },
+  "MD029": {
+    "style": "ordered"
+  },
+  "MD035": {
+    "style": "---"
+  },
+  "MD046": {
+    "style": "consistent"
+  },
+  "MD048": {
+    "style": "consistent"
+  },
+  "MD041": {
+    "level": 1
+  }
+}
