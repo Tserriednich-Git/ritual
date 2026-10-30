@@ -201,7 +201,7 @@ passcode lock inside the app (the device passcode is the only gate).
 - [ ] `npm run check` and `npm run doctor` green on the commit being tagged.
 - [ ] [CHANGELOG.md](../CHANGELOG.md) entry for the release exists and moves `Unreleased` content into a dated version block.
 - [ ] Version bump applied per [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md).
-- [ ] Legal documents' placeholders resolved: `<support@example.com>`, `<your-username>`, `<your-public-privacy-url>`, `<your-jurisdiction>`, `2026-XX-XX`.
+- [ ] Legal documents' placeholders resolved: `<support@example.com>`, `<your-public-privacy-url>`, `<your-jurisdiction>`, `2026-XX-XX`. (The GitHub account is already filled in across the docs and issue templates; the `REPLACE_WITH_EAS_PROJECT_ID` value in `app.json` is tracked in §1, not here.)
 - [ ] Backup of signing artefacts, keystore and store credentials outside the repo.
 - [ ] Rollback plan read (§ "Rollback" in [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md)).
 

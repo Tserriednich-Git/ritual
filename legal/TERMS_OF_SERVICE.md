@@ -5,7 +5,7 @@
 **Effective date:** 2026-XX-XX
 **Last updated:** 2026-XX-XX
 **Software:** Ritual — an offline-first habit tracker with streaks
-**Licensor / developer:** Gabriel (`<your-username>`)
+**Licensor / developer:** Gabriel (`Tserriednich-Git`)
 **Contact:** `<support@example.com>`
 
 By downloading, installing or using Ritual you agree to these terms. If you do not agree, do not install or use the app and delete any copy you have. These terms take effect on the date above and apply to every version of the app you use from that point on.

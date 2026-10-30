@@ -2,18 +2,19 @@
 # Blank issues stay off: the two forms capture the details this offline app
 # actually needs (platform, build type, exact dates) that free-text reports omit.
 #
-# Replace every <your-username> and <support@example.com> placeholder before this
-# is used — GitHub validates that each `url` resolves, and the angle-bracketed
-# placeholders below are deliberately not valid URLs so they cannot ship silently.
+# The account in these URLs is resolved. Two things still have to be true on
+# GitHub's side before they work: the repository exists, and Discussions is
+# enabled for it. Click each link once after publishing — a contact link that
+# points nowhere is easy to ship unnoticed.
 blank_issues_enabled: false
 
 contact_links:
   - name: Question or general discussion
-    url: https://github.com/<your-username>/ritual/discussions
+    url: https://github.com/Tserriednich-Git/ritual/discussions
     about: Unsure whether it is a bug? Ask here first. Discussions are searchable and do not compete with the issue queue.
 
   - name: Privacy or data question
-    url: https://github.com/<your-username>/ritual/discussions/categories/privacy
+    url: https://github.com/Tserriednich-Git/ritual/discussions/categories/privacy
     about: 'Short answer: Ritual collects nothing and contacts no server. See legal/PRIVACY_POLICY.md or legal/DATA_SAFETY.md before asking.'
 
   - name: Report a security vulnerability
@@ -21,5 +22,5 @@ contact_links:
     about: Never open a public issue for a vulnerability. Email the address in SECURITY.md; acknowledgement target is about 72 hours.
 
   - name: App Store or Play Store listing issue
-    url: https://github.com/<your-username>/ritual/issues
+    url: https://github.com/Tserriednich-Git/ritual/issues
     about: Use the bug report form and say which store build you are on. Review the checklist in legal/APP_STORE_CHECKLIST.md before filing.

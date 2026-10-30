@@ -136,6 +136,6 @@ at [https://www.contributor-covenant.org/translations][translations].
 
 ## Notes for this repository
 
-- **Who the community leaders are:** for Ritual, the maintainer (`<your-username>`) is the sole community leader. Reports are handled personally and are never forwarded to a third party, because there is no third party involved in this project.
+- **Who the community leaders are:** for Ritual, the maintainer (`Tserriednich-Git`) is the sole community leader. Reports are handled personally and are never forwarded to a third party, because there is no third party involved in this project.
 - **Acknowledgement target:** you should receive an acknowledgement within a few working days; if a report concerns safety of the app's users (see [SECURITY.md](./SECURITY.md)), the acknowledgement target there applies instead.
 - **No data collection, including here.** Because Ritual collects no user data, the only information a report consists of is what you choose to send by email to `<support@example.com>`. Nothing is stored in a tracking system, and any correspondence can be deleted on request.

@@ -111,5 +111,5 @@ First public release: an offline-first habit tracker with streaks.
 - The **export/import JSON shape** and the **SQLite schema** are the two compatibility surfaces users can observe. Changing either in a non-compatible way is a `MAJOR` bump with a migration path, and requires updating [legal/DATA_SAFETY.md](./legal/DATA_SAFETY.md) and the store declarations in the same release.
 - Store build numbers (`expo.buildNumber` / `versionCode`) increment independently of the SemVer version and are managed through EAS (`appVersionSource: remote` in [`eas.json`](./eas.json)); see [docs/RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md).
 
-[Unreleased]: https://github.com/<your-username>/ritual/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/<your-username>/ritual/releases/tag/v1.0.0
+[Unreleased]: https://github.com/Tserriednich-Git/ritual/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Tserriednich-Git/ritual/releases/tag/v1.0.0

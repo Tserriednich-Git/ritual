@@ -223,7 +223,7 @@ Typical first-PR material: extra domain test cases, copy fixes, a missing access
 
 ## 10. Getting help
 
-- Open a discussion or an issue: `https://github.com/<your-username>/ritual/issues` (use the templates).
+- Open a discussion or an issue: `https://github.com/Tserriednich-Git/ritual/issues` (use the templates).
 - Docs worth reading before asking: [README.md](./README.md) · [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) · [docs/adr/](./docs/adr) · [docs/RELEASE_PROCESS.md](./docs/RELEASE_PROCESS.md)
 - Reference material: [Expo docs](https://docs.expo.dev) · [React Navigation](https://reactnavigation.org)
 

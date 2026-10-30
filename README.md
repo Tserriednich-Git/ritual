@@ -32,7 +32,7 @@ Two product details matter more than they look, and both are implemented rather 
 ## Try it in 60 seconds
 
 ```bash
-git clone https://github.com/<your-username>/ritual.git
+git clone https://github.com/Tserriednich-Git/ritual.git
 cd ritual
 npm install
 npx expo start

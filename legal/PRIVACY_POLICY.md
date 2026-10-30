@@ -5,7 +5,7 @@
 **Effective date:** 2026-XX-XX
 **Last updated:** 2026-XX-XX
 **Application:** Ritual — an offline-first habit tracker with streaks
-**Publisher:** Gabriel (`<your-username>`)
+**Publisher:** Gabriel (`Tserriednich-Git`)
 **Contact:** `<support@example.com>`
 
 ---
@@ -135,7 +135,7 @@ This policy is governed by the laws of `<your-jurisdiction>`, and disputes are s
 ## 12. Contact
 
 - Email: `<support@example.com>`
-- Repository issues (for bugs, not private security reports): `https://github.com/<your-username>/ritual/issues`
+- Repository issues (for bugs, not private security reports): `https://github.com/Tserriednich-Git/ritual/issues`
 - For suspected vulnerabilities, please follow [`SECURITY.md`](../SECURITY.md) instead of opening a public issue.
 
 ---

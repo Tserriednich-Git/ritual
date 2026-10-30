@@ -5,7 +5,7 @@
 **Project:** Ritual — an offline-first habit tracker with streaks
 **Contact:** `<support@example.com>`
 **Acknowledgement target:** 72 hours
-**Repository:** `https://github.com/<your-username>/ritual`
+**Repository:** `https://github.com/Tserriednich-Git/ritual`
 
 ---
 

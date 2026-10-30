@@ -76,7 +76,7 @@ Nothing queued yet.
 ```
 
 - [ ] Every `Unreleased` entry has moved into the dated block.
-- [ ] Add the link reference at the bottom of the changelog (`[1.1.0]: https://github.com/<your-username>/ritual/releases/tag/v1.1.0`).
+- [ ] Add the link reference at the bottom of the changelog (`[1.1.0]: https://github.com/Tserriednich-Git/ritual/releases/tag/v1.1.0`).
 - [ ] "What's new" text for the stores is derived from this block, in user language — no internal terms like "repository", "selector" or "migration".
 
 ## 4. Commit and tag
