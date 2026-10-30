@@ -74,7 +74,7 @@ Requisitos: Node 22 (ver [`.nvmrc`](./.nvmrc)) y npm.
 ### De ingeniería
 
 - **Núcleo de dominio puro.** `src/domain` contiene tipos, utilidades de fecha civil, reglas de frecuencia, el motor de rachas, estadísticas, validación y el esquema del fichero de copia de seguridad. No importa nada de React Native, así que las reglas se ejecutan en Node bajo Jest y algún día podrían ejecutarse sin cambios en un servidor.
-- **Migraciones de SQLite versionadas.** Solo hacia delante, aplicadas en transacción exclusiva, controladas con `PRAGMA user_version`; las restricciones `UNIQUE (habit_id, local_date)` y los `CHECK` viven en el propio esquema.
+- **Migraciones de SQLite versionadas.** Solo hacia delante, cada una aplicada dentro de una transacción, controladas con `PRAGMA user_version`; las restricciones `UNIQUE (habit_id, local_date)` y los `CHECK` viven en el propio esquema.
 - **Navegación tipada.** React Navigation con un único contrato tipado (`TabsParamList`, `RootStackParamList`): pestañas inferiores (Hoy / Progreso / Ajustes) más una pila nativa para `HabitEditor` y `HabitDetail`.
 - **TypeScript estricto.** `strict`, además de `noUncheckedIndexedAccess`, `noImplicitOverride` y `noFallthroughCasesInSwitch` — sin salidas por `any` implícito.
 - **Relojes inyectados.** Toda función sensible a fechas recibe `today` como parámetro opcional, así que las pruebas de rachas son deterministas sin mockear `Date`.

@@ -116,9 +116,9 @@ export async function deleteHabit(db: SQLiteDatabase, id: string): Promise<void>
 }
 
 export async function reorderHabits(db: SQLiteDatabase, orderedIds: string[]): Promise<void> {
-  await db.withExclusiveTransactionAsync(async (txn) => {
+  await db.withTransactionAsync(async () => {
     for (const [index, id] of orderedIds.entries()) {
-      await txn.runAsync('UPDATE habits SET position = ? WHERE id = ?', [index, id]);
+      await db.runAsync('UPDATE habits SET position = ? WHERE id = ?', [index, id]);
     }
   });
 }

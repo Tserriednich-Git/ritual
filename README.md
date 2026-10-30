@@ -74,7 +74,7 @@ Prerequisites: Node 22 (see [`.nvmrc`](./.nvmrc)) and npm.
 ### Engineering
 
 - **Pure domain core.** `src/domain` holds types, civil-date helpers, frequency rules, the streak engine, stats, validation and the backup-file schema. It imports nothing from React Native, so the rules run in Node under Jest and could run unchanged on a server someday.
-- **Versioned SQLite migrations.** Forward-only, applied inside exclusive transactions, tracked with `PRAGMA user_version`; `UNIQUE (habit_id, local_date)` and `CHECK` constraints live in the schema itself.
+- **Versioned SQLite migrations.** Forward-only, each applied inside one transaction, tracked with `PRAGMA user_version`; `UNIQUE (habit_id, local_date)` and `CHECK` constraints live in the schema itself.
 - **Typed navigation.** React Navigation with one typed contract (`TabsParamList`, `RootStackParamList`): bottom tabs (Today / Progress / Settings) plus a native stack for `HabitEditor` and `HabitDetail`.
 - **Strict TypeScript.** `strict`, plus `noUncheckedIndexedAccess`, `noImplicitOverride` and `noFallthroughCasesInSwitch` — no ambient-any escape hatches.
 - **Injected clocks.** Every date-sensitive function takes `today` as an optional parameter, so streak tests are deterministic without mocking `Date`.

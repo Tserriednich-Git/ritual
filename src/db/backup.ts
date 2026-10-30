@@ -89,15 +89,15 @@ export async function applyBackup(
   backup: BackupFile,
   mode: 'merge' | 'replace',
 ): Promise<{ habits: number; completions: number }> {
-  await db.withExclusiveTransactionAsync(async (txn) => {
+  await db.withTransactionAsync(async () => {
     if (mode === 'replace') {
-      await txn.runAsync('DELETE FROM completions');
-      await txn.runAsync('DELETE FROM habits');
+      await db.runAsync('DELETE FROM completions');
+      await db.runAsync('DELETE FROM habits');
     }
 
     for (const habit of backup.habits) {
       const frequency = serialiseFrequency(habit.frequency);
-      await txn.runAsync(
+      await db.runAsync(
         `INSERT INTO habits (id, name, description, color, icon, frequency_kind, frequency_target,
                              frequency_days, reminder_time, position, created_at, archived_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -125,19 +125,19 @@ export async function applyBackup(
     }
 
     for (const completion of backup.completions) {
-      await txn.runAsync(
+      await db.runAsync(
         `INSERT INTO completions (habit_id, local_date, completed_at, note)
          VALUES (?, ?, ?, ?) ON CONFLICT(habit_id, local_date) DO NOTHING`,
         [completion.habitId, completion.localDate, completion.completedAt, completion.note],
       );
     }
 
-    await txn.runAsync(
+    await db.runAsync(
       `INSERT INTO preferences (key, value) VALUES ('theme', ?)
        ON CONFLICT(key) DO UPDATE SET value = excluded.value`,
       [backup.preferences.theme],
     );
-    await txn.runAsync(
+    await db.runAsync(
       `INSERT INTO preferences (key, value) VALUES ('weekStartsOn', ?)
        ON CONFLICT(key) DO UPDATE SET value = excluded.value`,
       [String(backup.preferences.weekStartsOn)],

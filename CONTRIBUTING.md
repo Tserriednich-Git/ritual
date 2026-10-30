@@ -157,7 +157,7 @@ export const MIGRATIONS: Migration[] = [
 ];
 ```
 
-`runMigrations` reads `PRAGMA user_version`, enables `journal_mode = WAL` and `foreign_keys = ON` outside the transaction (pragmas cannot run inside one) and applies each pending entry with `withExclusiveTransactionAsync`, setting `user_version` in the same transaction.
+`runMigrations` reads `PRAGMA user_version`, enables `journal_mode = WAL` and `foreign_keys = ON` outside the transaction (pragmas cannot run inside one) and applies each pending entry with `withTransactionAsync`, setting `user_version` in the same transaction. `withExclusiveTransactionAsync` is deliberately unused: it exists only on native, and one connection per app never contends with another writer.
 
 Rules:
 

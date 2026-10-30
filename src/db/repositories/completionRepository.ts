@@ -50,8 +50,8 @@ export async function isCompletedOn(
   habitId: string,
   localDate: string,
 ): Promise<boolean> {
-  const row = await db.getFirstAsync<{ exists: number }>(
-    'SELECT 1 AS exists FROM completions WHERE habit_id = ? AND local_date = ? LIMIT 1',
+  const row = await db.getFirstAsync<{ hit: number }>(
+    'SELECT 1 AS hit FROM completions WHERE habit_id = ? AND local_date = ? LIMIT 1',
     [habitId, localDate],
   );
   return row !== null;

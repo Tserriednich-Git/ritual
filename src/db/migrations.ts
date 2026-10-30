@@ -45,9 +45,12 @@ export async function runMigrations(db: SQLiteDatabase): Promise<{ from: number;
   );
 
   for (const migration of pending) {
-    await db.withExclusiveTransactionAsync(async (txn) => {
-      await txn.execAsync(migration.sql);
-      await txn.execAsync(`PRAGMA user_version = ${migration.version}`);
+    // A deferred transaction, not an exclusive one: expo-sqlite implements
+    // withExclusiveTransactionAsync only on native, and one connection per app
+    // never contends with another writer.
+    await db.withTransactionAsync(async () => {
+      await db.execAsync(migration.sql);
+      await db.execAsync(`PRAGMA user_version = ${migration.version}`);
     });
   }
 

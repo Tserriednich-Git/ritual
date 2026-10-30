@@ -177,7 +177,7 @@ Owned by `src/db`. Principles:
    ];
    ```
 
-   `runMigrations` reads `PRAGMA user_version`, refuses to open a database newer than the app understands (rather than guessing), enables `journal_mode = WAL` and `foreign_keys = ON` outside a transaction — pragmas cannot run inside one — and applies each pending migration with `withExclusiveTransactionAsync`, setting `PRAGMA user_version = <version>` in the same transaction. The interpolated value there is a numeric constant taken from the migration list, never from data.
+   `runMigrations` reads `PRAGMA user_version`, refuses to open a database newer than the app understands (rather than guessing), enables `journal_mode = WAL` and `foreign_keys = ON` outside a transaction — pragmas cannot run inside one — and applies each pending migration with `withTransactionAsync`, setting `PRAGMA user_version = <version>` in the same transaction. The interpolated value there is a numeric constant taken from the migration list, never from data. `withExclusiveTransactionAsync` is not used anywhere: expo-sqlite throws `withExclusiveTransactionAsync is not supported on web`, and a single connection per app has no other writer to exclude.
 
 4. **Never edit a shipped migration.** Add `version: N+1`. A user two releases behind must arrive at exactly the same schema as someone upgrading step by step; editing an applied migration breaks that equivalence and is the most common way to corrupt a live install. If a shipped migration was wrong, write a corrective migration and, if necessary, a repair step in the newer one.
 5. **Each migration runs inside a transaction**, so a mid-migration failure leaves the previous version intact and the app refuses to open half-migrated data.
